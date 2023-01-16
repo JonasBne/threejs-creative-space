@@ -8,6 +8,7 @@
   "private": true,
   "dependencies": {
     "core-js": "^3.6.5",
+    "lil-gui": "^0.17.0",
     "regenerator-runtime": "0.13.7",
     "three": "^0.148.0",
     "tslib": "^2.3.0"

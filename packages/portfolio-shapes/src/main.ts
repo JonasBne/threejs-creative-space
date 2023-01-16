@@ -2,49 +2,88 @@ import './app/app.element.ts';
 import './styles.css';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import * as debugUI from 'lil-gui';
 
-// canvas
+/*
+* debug interface
+*  */
+const debug = new debugUI.GUI();
+
+/*
+* canvas
+* */
 const canvas = document.getElementsByClassName('webgl')[0] as HTMLCanvasElement;
 
-// initiate a scene
+/*
+* initiate a scene
+* */
 const scene = new THREE.Scene();
 
-// mesh
-const geometry = new THREE.BoxGeometry(0.75, 0.75, 0.75);
-const material = new THREE.MeshBasicMaterial({ color: 'green'});
-const mesh = new THREE.Mesh(geometry, material);
-scene.add(mesh);
+/*
+* objects
+* */
 
-// sizes
+/*
+* cube 1
+* */
+
+const cubeGeometry1 = new THREE.BoxGeometry(0.75, 0.75, 0.75);
+const cubeMaterial1 = new THREE.MeshBasicMaterial({ color: 'green'});
+const cubeMesh1 = new THREE.Mesh(cubeGeometry1, cubeMaterial1);
+scene.add(cubeMesh1);
+
+/*
+* cube 2
+* */
+
+const cubeGeometry2 = new THREE.BoxGeometry(0.75, 0.75, 0.75);
+const cubeMaterial2 = new THREE.MeshBasicMaterial({ color: 'blue'});
+const cubeMesh2 = new THREE.Mesh(cubeGeometry2, cubeMaterial2);
+scene.add(cubeMesh2);
+
+/*
+* cube 3
+* */
+
+const cubeGeometry3 = new THREE.BoxGeometry(0.75, 0.75, 0.75);
+const cubeMaterial3 = new THREE.MeshBasicMaterial({ color: 'purple'});
+const cubeMesh3 = new THREE.Mesh(cubeGeometry3, cubeMaterial3);
+scene.add(cubeMesh3);
+
+/*
+* sizes
+* */
 const sizes = {
   width: window.innerWidth,
   height: window.innerHeight,
 };
 
-// resize handler
+/*
+* handle screen resizes
+* */
 window.addEventListener('resize', () => {
-  // update sizes
+  /*
+  * update sizes
+  * */
   sizes.width = window.innerWidth;
   sizes.height = window.innerHeight;
 
-  // update camera
+  /*
+  * update camera aspect
+  * */
   camera.aspect = sizes.width / sizes.height;
   camera.updateProjectionMatrix();
 
-  // update renderer and pixel ration
+  /*
+  * update renderer and pixel ratio
+  * */
   renderer.setSize(sizes.width, sizes.height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 });
 
-// fullscreen handler
-window.addEventListener('dblclick', () => {
-  if (!document.fullscreenElement) {
-    return canvas.requestFullscreen();
-  }
-  return document.exitFullscreen();
-});
-
-// camera
+/*
+* camera
+* */
 const camera = new THREE.PerspectiveCamera(
   75,
   sizes.width / sizes.height,
@@ -54,15 +93,22 @@ const camera = new THREE.PerspectiveCamera(
 camera.position.z = 3;
 scene.add(camera);
 
-// controls
+/*
+* orbit controls
+* */
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
 
-// renderer
+/*
+* renderer
+* */
 const renderer = new THREE.WebGLRenderer({
   canvas,
 });
-// add size to renderer to avoid pixelated view
+
+/*
+* add size to renderer to avoid pixelated views
+* */
 renderer.setSize(window.innerWidth, window.innerHeight);
 
 const animate = () => {
