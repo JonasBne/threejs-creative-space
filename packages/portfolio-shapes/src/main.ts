@@ -9,6 +9,16 @@ import * as debugUI from 'lil-gui';
 *  */
 const gui = new debugUI.GUI();
 
+const debugColors = {
+  color1: '#FFF',
+  color2: '#FFF',
+  color3: '#FFF'
+}
+
+gui.addColor(debugColors, 'color1')
+gui.addColor(debugColors, 'color2')
+gui.addColor(debugColors, 'color3')
+
 /*
 * canvas
 * */
@@ -28,7 +38,7 @@ const scene = new THREE.Scene();
 * */
 
 const cubeGeometry1 = new THREE.BoxGeometry(0.75, 0.75, 0.75);
-const cubeMaterial1 = new THREE.MeshBasicMaterial({ color: 'green'});
+const cubeMaterial1 = new THREE.MeshBasicMaterial({ color: debugColors.color1});
 const cubeMesh1 = new THREE.Mesh(cubeGeometry1, cubeMaterial1);
 
 const folderCube1 = gui.addFolder('cube 1');
@@ -41,6 +51,10 @@ folderCube1.add(cubeMesh1.rotation, 'x').min(-4).max(4).step(0.01);
 folderCube1.add(cubeMesh1.rotation, 'y').min(-4).max(4).step(0.01);
 folderCube1.add(cubeMesh1.rotation, 'z').min(-4).max(4).step(0.01);
 
+gui.onChange((event) => {
+  cubeMaterial1.color.set(event.value)
+})
+
 scene.add(cubeMesh1);
 
 /*
@@ -48,7 +62,7 @@ scene.add(cubeMesh1);
 * */
 
 const cubeGeometry2 = new THREE.BoxGeometry(0.75, 0.75, 0.75);
-const cubeMaterial2 = new THREE.MeshBasicMaterial({ color: 'blue'});
+const cubeMaterial2 = new THREE.MeshBasicMaterial({ color: debugColors.color2});
 const cubeMesh2 = new THREE.Mesh(cubeGeometry2, cubeMaterial2);
 
 const folderCube2 = gui.addFolder('cube 2');
@@ -61,6 +75,10 @@ folderCube2.add(cubeMesh2.rotation, 'x').min(-4).max(4).step(0.01);
 folderCube2.add(cubeMesh2.rotation, 'y').min(-4).max(4).step(0.01);
 folderCube2.add(cubeMesh2.rotation, 'z').min(-4).max(4).step(0.01);
 
+gui.onChange((event) => {
+  cubeMaterial2.color.set(event.value)
+});
+
 scene.add(cubeMesh2);
 
 /*
@@ -68,10 +86,10 @@ scene.add(cubeMesh2);
 * */
 
 const cubeGeometry3 = new THREE.BoxGeometry(0.75, 0.75, 0.75);
-const cubeMaterial3 = new THREE.MeshBasicMaterial({ color: 'purple'});
+const cubeMaterial3 = new THREE.MeshBasicMaterial({ color: debugColors.color3});
 const cubeMesh3 = new THREE.Mesh(cubeGeometry3, cubeMaterial3);
 
-const folderCube3 = gui.addFolder('cube 1');
+const folderCube3 = gui.addFolder('cube 3');
 
 folderCube3.add(cubeMesh3.position, 'x').min(-4).max(4).step(0.0001).name('horizontal');
 folderCube3.add(cubeMesh3.position, 'y').min(-4).max(4).step(0.0001).name('vertical');
@@ -80,6 +98,10 @@ folderCube3.add(cubeMesh3.position, 'z').min(-4).max(4).step(0.0001).name('depth
 folderCube3.add(cubeMesh3.rotation, 'x').min(-4).max(4).step(0.01);
 folderCube3.add(cubeMesh3.rotation, 'y').min(-4).max(4).step(0.01);
 folderCube3.add(cubeMesh3.rotation, 'z').min(-4).max(4).step(0.01);
+
+gui.onChange((event) => {
+  cubeMaterial3.color.set(event.value)
+});
 
 scene.add(cubeMesh3);
 
