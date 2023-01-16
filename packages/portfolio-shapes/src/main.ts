@@ -11,13 +11,9 @@ const gui = new debugUI.GUI();
 
 const debugColors = {
   color1: '#FFF',
-  color2: '#FFF',
-  color3: '#FFF'
+  color2: '#AAA',
+  color3: '#BBB'
 }
-
-gui.addColor(debugColors, 'color1')
-gui.addColor(debugColors, 'color2')
-gui.addColor(debugColors, 'color3')
 
 /*
 * canvas
@@ -41,6 +37,8 @@ const cubeGeometry1 = new THREE.BoxGeometry(0.75, 0.75, 0.75);
 const cubeMaterial1 = new THREE.MeshBasicMaterial({ color: debugColors.color1});
 const cubeMesh1 = new THREE.Mesh(cubeGeometry1, cubeMaterial1);
 
+cubeMesh1.position.x = -1;
+
 const folderCube1 = gui.addFolder('cube 1');
 
 folderCube1.add(cubeMesh1.position, 'x').min(-4).max(4).step(0.0001).name('horizontal');
@@ -50,6 +48,8 @@ folderCube1.add(cubeMesh1.position, 'z').min(-4).max(4).step(0.0001).name('depth
 folderCube1.add(cubeMesh1.rotation, 'x').min(-4).max(4).step(0.01);
 folderCube1.add(cubeMesh1.rotation, 'y').min(-4).max(4).step(0.01);
 folderCube1.add(cubeMesh1.rotation, 'z').min(-4).max(4).step(0.01);
+
+folderCube1.addColor(debugColors, 'color1')
 
 gui.onChange((event) => {
   cubeMaterial1.color.set(event.value)
@@ -75,8 +75,10 @@ folderCube2.add(cubeMesh2.rotation, 'x').min(-4).max(4).step(0.01);
 folderCube2.add(cubeMesh2.rotation, 'y').min(-4).max(4).step(0.01);
 folderCube2.add(cubeMesh2.rotation, 'z').min(-4).max(4).step(0.01);
 
+folderCube2.addColor(debugColors, 'color2')
+
 gui.onChange((event) => {
-  cubeMaterial2.color.set(event.value)
+  cubeMaterial3.color.set(event.value)
 });
 
 scene.add(cubeMesh2);
@@ -88,6 +90,8 @@ scene.add(cubeMesh2);
 const cubeGeometry3 = new THREE.BoxGeometry(0.75, 0.75, 0.75);
 const cubeMaterial3 = new THREE.MeshBasicMaterial({ color: debugColors.color3});
 const cubeMesh3 = new THREE.Mesh(cubeGeometry3, cubeMaterial3);
+
+cubeMesh3.position.x = 1;
 
 const folderCube3 = gui.addFolder('cube 3');
 
@@ -145,7 +149,12 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   1000,
 );
-camera.position.z = 3;
+camera.position.z = 2.5;
+
+gui.add(camera.position, 'x').min(-4).max(4).step(0.001).name('camera position vertical')
+gui.add(camera.position, 'y').min(-4).max(4).step(0.001).name('camera position horizontal')
+gui.add(camera.position, 'z').min(-4).max(4).step(0.001).name('camera position depth')
+
 scene.add(camera);
 
 /*
